@@ -4,9 +4,10 @@ import playRound from "../hooks/playRound";
 
 const Button = () => {
     const [moves, setMoves] = useState([])
-    const [playerMove, setPlayerMove] = useState("")
+    // const [playerMove, setPlayerMove] = useState("") NO LONGER RELEVANT
 
-    
+    const computerPlays = ["rock", "paper", "scissors"]
+    const computerMove = () => computerPlays[Math.floor(Math.random() * computerPlays.length)]
 
     const [results, setResults] = useState([])
 
@@ -15,17 +16,17 @@ const Button = () => {
         setResults("")
     }, [])
 
-    useEffect(() => {
-        const computerPlays = ["rock", "paper", "scissors"]
-        const computerMove = () => computerPlays[Math.floor(Math.random() * computerPlays.length)]
-        setResults(playRound(playerMove, computerMove()))
-    },[playerMove])
+    // useEffect(() => {
+    //     const computerPlays = ["rock", "paper", "scissors"]
+    //     const computerMove = () => computerPlays[Math.floor(Math.random() * computerPlays.length)]
+    //     setResults(playRound(playerMove, computerMove()))
+    // },[playerMove])
     
     return(
         <div>
        {moves.map((move) => (
            <div>
-                <button onClick={()=> setPlayerMove(move.name)} key={move.name}>{move.name}</button>
+                <button onClick={()=> setResults(playRound(move.name, computerMove()))} key={move.name}>{move.name}</button>
             </div>
         ))}
         <p>{results}</p>
