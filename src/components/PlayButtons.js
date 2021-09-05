@@ -5,8 +5,8 @@ import playRound from "../hooks/playRound";
 const Button = () => {
     const [moves, setMoves] = useState([])
     const [playerMove, setPlayerMove] = useState("")
-    const computerPlays = ["rock", "paper", "scissors"]
-    const computerMove = () => computerPlays[Math.floor(Math.random() * computerPlays.length)]
+
+    
 
     const [results, setResults] = useState([])
 
@@ -16,13 +16,17 @@ const Button = () => {
     }, [])
 
     useEffect(() => {
+        const computerPlays = ["rock", "paper", "scissors"]
+        const computerMove = () => computerPlays[Math.floor(Math.random() * computerPlays.length)]
         setResults(playRound(playerMove, computerMove()))
-    })
+    },[playerMove])
     
     return(
         <div>
        {moves.map((move) => (
+           <div>
                 <button onClick={()=> setPlayerMove(move.name)} key={move.name}>{move.name}</button>
+            </div>
         ))}
         <p>{results}</p>
         </div>
